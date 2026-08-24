@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TikTok Control Panel</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+  <div class="popup-container">
+    
+    <header class="popup-header">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2">
+            <rect x="2" y="4" width="20" height="16" rx="4" stroke="url(#cyanPinkGrad)" stroke-width="2.2" />
+            <path d="M10 9l5 3-5 3V9z" fill="url(#cyanPinkGrad)" />
+            <defs>
+              <linearGradient id="cyanPinkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#25F4EE" />
+                <stop offset="100%" stop-color="#FE2C55" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>TikTok Control Panel</h1>
+          <span class="version-badge">v1.0</span>
+        </div>
+      </div>
+      <label class="header-enable-toggle" id="headerEnableWrapper" title="Enable / Disable the extension">
+        <span class="header-enable-label">Enabled</span>
+        <input type="checkbox" id="headerEnabledToggle" class="header-enable-checkbox">
+      </label>
+    </header>
+
+    
+    <div class="hero-card">
+      <div class="hero-info">
+        <div class="hero-title">Minimalist Mode</div>
+      </div>
+      <label class="master-switch">
+        <input type="checkbox" id="masterToggle">
+        <span class="master-slider"></span>
+      </label>
+    </div>
+
+    
+    <nav class="nav-tabs">
+      <button class="nav-tab active" data-tab="general">General</button>
+      <button class="nav-tab" data-tab="visibility">Visibility</button>
+      <button class="nav-tab" data-tab="playback">Playback</button>
+      <button class="nav-tab" data-tab="shortcuts">Shortcuts</button>
+    </nav>
+
+    
+    <main class="tab-content-area">
+      
+      <section class="tab-panel active" id="tab-general">
+        <div class="setting-group">
+          <div class="setting-row">
+            <div class="setting-info">
+              <span class="setting-name">Autostart In Minimalist Mode</span>
+              <span class="setting-hint">Automatically activate when opening TikTok</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="chk-autostart">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+
+          <div class="setting-row">
+            <div class="setting-info">
+              <span class="setting-name">Square Video Corners</span>
+              <span class="setting-hint">Remove rounded borders on videos</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="chk-squareCorners">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-info">
+              <span class="setting-name">Fullscreen Button</span>
+              <span class="setting-hint">Top left fullscreen button</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="chk-fullscreenButton">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-info">
+              <span class="setting-name">Mute Button</span>
+              <span class="setting-hint">Top left mute button</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="chk-muteButton">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-info">
+              <span class="setting-name">Close Button (Esc)</span>
+              <span class="setting-hint">Top left exit button in minimalist view</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="chk-closeButton">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      
+      <section class="tab-panel" id="tab-visibility">
+        <div class="setting-group">
+          
+          <div class="setting-row highlight-row">
+            <div class="setting-info">
+              <span class="setting-name">Hide All UI Elements</span>
+              <span class="setting-hint">Removes everything except video</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="chk-hideAll">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="section-divider"><span>Interface Elements</span></div>
+
+          <div class="setting-row">
+            <div class="setting-info">
+              <span class="setting-name">Left Side NavPanel</span>
+              <span class="setting-hint">For You / Following / LIVE navigation</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="chk-sidebar">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-info">
+              <span class="setting-name">Top Right Pills</span>
+              <span class="setting-hint">Get App, Upload, Notifications, Profile</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="chk-headerPills">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-info">
+              <span class="setting-name">Captions</span>
+              <span class="setting-hint">Creator username, caption text, hashtags</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="chk-caption">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-info">
+              <span class="setting-name">Progress Bar</span>
+              <span class="setting-hint">Timeline at screen bottom</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="chk-progressBar">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-info">
+              <span class="setting-name">Auto Hide Comments Panel</span>
+              <span class="setting-hint">RightSide panel containing comments</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="chk-autoHideVideoList">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="section-divider"><span>Action Bar Items</span></div>
+
+          <div class="setting-row">
+            <div class="setting-info">
+              <span class="setting-name">Navigation Buttons</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="chk-navButtons">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-info">
+              <span class="setting-name">Creator Avatar</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="chk-avatar">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-info">
+              <span class="setting-name">Like Button</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="chk-likeButton">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-info">
+              <span class="setting-name">Comments Button</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="chk-commentButton">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-info">
+              <span class="setting-name">Favorites Button</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="chk-favoriteButton">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-info">
+              <span class="setting-name">Share Button</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="chk-shareButton">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-info">
+              <span class="setting-name">Music Button</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="chk-musicButton">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      
+      <section class="tab-panel" id="tab-playback">
+        <div class="setting-group">
+          <div class="setting-row">
+            <div class="setting-info">
+              <span class="setting-name">Background Playback</span>
+              <span class="setting-hint">Keep playing when switching tabs or minimizing</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="chk-bgPlayback">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-info">
+              <span class="setting-name">Spacebar Pause / Play</span>
+              <span class="setting-hint">Spacebar toggles video playback instead of scrolling</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="chk-spacebarPause">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-info">
+              <span class="setting-name">Arrow Key Seeking</span>
+              <span class="setting-hint">Left / Right Keyboard arrows jump video position</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="chk-seekEnabled">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-row-stacked" id="seekDurationRow">
+            <div class="stacked-label-row">
+              <span class="setting-name">Seek Jump Step</span>
+              <span class="step-badge" id="seekDurBadge">3 seconds</span>
+            </div>
+            <div class="slider-control">
+              <input type="range" id="rng-seekDuration" min="1" max="30" step="1" value="3">
+              <div class="range-marks">
+                <span>1s</span>
+                <span>5s</span>
+                <span>10s</span>
+                <span>15s</span>
+                <span>20s</span>
+                <span>25s</span>
+                <span>30s</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      
+      <section class="tab-panel" id="tab-shortcuts">
+        <div class="shortcuts-card">
+          <div class="shortcut-item">
+            <kbd>C</kbd>
+            <span>Toggle Minimalist Mode</span>
+          </div>
+          <div class="shortcut-item">
+            <kbd>M</kbd>
+            <span>Mute / Unmute Sound</span>
+          </div>
+          <div class="shortcut-item">
+            <kbd>Space</kbd>
+            <span>Play / Pause Video</span>
+          </div>
+          <div class="shortcut-item">
+            <kbd>←</kbd> <kbd>→</kbd>
+            <span>Seek Backward / Forward</span>
+          </div>
+          <div class="shortcut-item">
+            <kbd>F11</kbd>
+            <span>Fullscreen</span>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="popup.js"></script>
+</body>
+
+</html>
