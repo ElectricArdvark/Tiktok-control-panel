@@ -1,5 +1,7 @@
 # ![TTCP](https://raw.githubusercontent.com/ElectricArdvark/Tiktok-control-panel/main/extension/icons/icon32.png) TikTok Control Panel
 
+[![Made with AI](https://img.shields.io/badge/Made%20with-AI-lightgrey?style=for-the-badge)](https://github.com/mefengl/made-by-ai)
+
 A comprehensive control panel for TikTok on desktop: toggle minimalist cinema view, customize element visibility, enable background playback, configurable arrow seeking, spacebar pause, and custom player controls.
 
 > [!NOTE]
