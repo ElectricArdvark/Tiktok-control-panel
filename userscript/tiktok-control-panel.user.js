@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         TikTok Control Panel
 // @namespace    https://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  Control panel for TikTok: customize element visibility (sidebar, action bar, captions, pills...), enable background playback, arrow seeking, spacebar to pause, minimalist mode...
 // @author       ElectricArdvark
 // @match        https://www.tiktok.com/*
@@ -110,7 +110,8 @@ html.${ROOT_CLS} tiktok-cookie-banner { display: none !important; }
 html.${ROOT_CLS} #app-header > div:has([data-e2e="search-box"]),
 html.${ROOT_CLS} [class*="BaseBodyContainer"] > div:has([data-e2e="nav-foryou"]) { display: none !important; }
 html.tt-opt-autoHideVideoList:not(.tt-show-video-list) [class*="DivVideoList"] { display: none !important; }
-html.${ROOT_CLS}, html.${ROOT_CLS} body { background: #000 !important; }
+html[data-theme="dark"].${ROOT_CLS}, html[data-theme="dark"].${ROOT_CLS} body { background: #000 !important; }
+html:not([data-theme="dark"]).${ROOT_CLS}, html:not([data-theme="dark"]).${ROOT_CLS} body { background: #fff !important; }
 html.${ROOT_CLS} body { overflow-x: clip !important; }
 html.${ROOT_CLS} #app-header { position: static !important; height: auto !important; padding: 0 !important; }
 html.${ROOT_CLS} [class*="BaseBodyContainer"],
@@ -119,18 +120,20 @@ html.${ROOT_CLS} [class*="DivMainContainer"] {
   padding: 0 !important;
   margin: 0 !important;
 }
-html.${ROOT_CLS} main[id^="main-content-"] {
-  width: 100% !important;
-  max-width: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  background: #000 !important;
-}
+html.${ROOT_CLS} main[id^="main-content-"],
 html.${ROOT_CLS} #column-list-container {
   width: 100% !important;
   max-width: none !important;
   padding: 0 !important;
   margin: 0 !important;
+}
+html[data-theme="dark"].${ROOT_CLS} main[id^="main-content-"],
+html[data-theme="dark"].${ROOT_CLS} #column-list-container {
+  background: #000 !important;
+}
+html:not([data-theme="dark"]).${ROOT_CLS} main[id^="main-content-"],
+html:not([data-theme="dark"]).${ROOT_CLS} #column-list-container {
+  background: #fff !important;
 }
 
 html.${ROOT_CLS}.tt-route-video [class*="BaseBodyContainer"],
@@ -327,8 +330,19 @@ html.${ROOT_CLS}.${COMMENTS_CLS} [class*="DivCommentSidebarTransitionWrapper"] {
   max-width: var(--tt-comments-width, 350px) !important;
   height: 100vh !important;
   z-index: 9999 !important;
-  background: #121212 !important;
   animation: slideInFromRight 0.3s ease forwards !important;
+}
+html[data-theme="dark"].${ROOT_CLS}.${COMMENTS_CLS} [class*="DivCommentContainer"],
+html[data-theme="dark"].${ROOT_CLS}.${COMMENTS_CLS} [class*="AsideCommentSidebar"],
+html[data-theme="dark"].${ROOT_CLS}.${COMMENTS_CLS} [class*="DivCommentSidebar"],
+html[data-theme="dark"].${ROOT_CLS}.${COMMENTS_CLS} [class*="DivCommentSidebarTransitionWrapper"] {
+  background: #121212 !important;
+}
+html:not([data-theme="dark"]).${ROOT_CLS}.${COMMENTS_CLS} [class*="DivCommentContainer"],
+html:not([data-theme="dark"]).${ROOT_CLS}.${COMMENTS_CLS} [class*="AsideCommentSidebar"],
+html:not([data-theme="dark"]).${ROOT_CLS}.${COMMENTS_CLS} [class*="DivCommentSidebar"],
+html:not([data-theme="dark"]).${ROOT_CLS}.${COMMENTS_CLS} [class*="DivCommentSidebarTransitionWrapper"] {
+  background: #fff !important;
 }
 html.${ROOT_CLS}.${COMMENTS_CLS} [class*="SectionCommentSidebarContainer"] {
   width: 100% !important;

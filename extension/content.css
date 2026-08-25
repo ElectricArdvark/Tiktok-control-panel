@@ -1,4 +1,3 @@
-
 :root {
   --tt-comments-width: 350px;
   --tt-stack-h: 470px;
@@ -9,7 +8,7 @@
   --tt-border: rgba(255, 255, 255, 0.12);
 }
 
-html.tt-minimalist-feed #app-header > [class*="DivHeaderWrapperMain"],
+html.tt-minimalist-feed #app-header>[class*="DivHeaderWrapperMain"],
 html.tt-minimalist-feed [class*="DivSideNavPlaceholderContainer"],
 html.tt-minimalist-feed #fixed-top-container,
 html.tt-minimalist-feed [class*="DivFixedBottomContainer"],
@@ -17,8 +16,8 @@ html.tt-minimalist-feed tiktok-cookie-banner {
   display: none !important;
 }
 
-html.tt-minimalist-feed #app-header > div:has([data-e2e="search-box"]),
-html.tt-minimalist-feed [class*="BaseBodyContainer"] > div:has([data-e2e="nav-foryou"]) {
+html.tt-minimalist-feed #app-header>div:has([data-e2e="search-box"]),
+html.tt-minimalist-feed [class*="BaseBodyContainer"]>div:has([data-e2e="nav-foryou"]) {
   display: none !important;
 }
 
@@ -26,9 +25,14 @@ html.tt-opt-autoHideVideoList:not(.tt-show-video-list) [class*="DivVideoList"] {
   display: none !important;
 }
 
-html.tt-minimalist-feed,
-html.tt-minimalist-feed body {
+html[data-theme="dark"].tt-minimalist-feed,
+html[data-theme="dark"].tt-minimalist-feed body {
   background: #000 !important;
+}
+
+html:not([data-theme="dark"]).tt-minimalist-feed,
+html:not([data-theme="dark"]).tt-minimalist-feed body {
+  background: #fff !important;
 }
 
 html.tt-minimalist-feed body {
@@ -54,7 +58,16 @@ html.tt-minimalist-feed #column-list-container {
   max-width: none !important;
   padding: 0 !important;
   margin: 0 !important;
+}
+
+html[data-theme="dark"].tt-minimalist-feed main[id^="main-content-"],
+html[data-theme="dark"].tt-minimalist-feed #column-list-container {
   background: #000 !important;
+}
+
+html:not([data-theme="dark"]).tt-minimalist-feed main[id^="main-content-"],
+html:not([data-theme="dark"]).tt-minimalist-feed #column-list-container {
+  background: #fff !important;
 }
 
 html.tt-minimalist-feed.tt-route-video [class*="BaseBodyContainer"],
@@ -145,21 +158,21 @@ html.tt-opt-fullHeightVideo.tt-minimalist-feed [class*="SectionMediaCardContaine
 }
 
 html.tt-minimalist-feed [class*="SectionMediaCardContainer"],
-html.tt-minimalist-feed [class*="SectionMediaCardContainer"] > [class*="BasePlayerContainer"] {
+html.tt-minimalist-feed [class*="SectionMediaCardContainer"]>[class*="BasePlayerContainer"] {
   overflow: visible !important;
 }
 
 html.tt-opt-squareCorners [class*="SectionMediaCardContainer"],
-html.tt-opt-squareCorners [class*="SectionMediaCardContainer"] > [class*="BasePlayerContainer"],
-html.tt-opt-squareCorners [class*="SectionMediaCardContainer"] [class*="BasePlayerContainer"] > [class*="DivContainer"],
-html.tt-opt-squareCorners [class*="SectionMediaCardContainer"] [class*="BasePlayerContainer"] > [class*="DivContainer"] > [class*="Box"],
+html.tt-opt-squareCorners [class*="SectionMediaCardContainer"]>[class*="BasePlayerContainer"],
+html.tt-opt-squareCorners [class*="SectionMediaCardContainer"] [class*="BasePlayerContainer"]>[class*="DivContainer"],
+html.tt-opt-squareCorners [class*="SectionMediaCardContainer"] [class*="BasePlayerContainer"]>[class*="DivContainer"]>[class*="Box"],
 html.tt-opt-squareCorners [class*="SectionMediaCardContainer"] [class*="DivMediaCardOverlay"],
 html.tt-opt-squareCorners [class*="SectionMediaCardContainer"] [class*="DivMediaCardOverlayBottomSection"],
 html.tt-opt-squareCorners [class*="SectionMediaCardContainer"] [class*="DivMediaCardOverlayBottom"] {
   border-radius: 0 !important;
 }
 
-html.tt-opt-squareCorners [class*="SectionMediaCardContainer"] [class*="BasePlayerContainer"] > [class*="DivContainer"] {
+html.tt-opt-squareCorners [class*="SectionMediaCardContainer"] [class*="BasePlayerContainer"]>[class*="DivContainer"] {
   overflow: visible !important;
 }
 
@@ -253,8 +266,13 @@ html.tt-minimalist-feed.tt-iv-comments [class*="AsideOneColumnSidebar"] {
 }
 
 @keyframes ttSlideInRight {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
 }
 
 html.tt-minimalist-feed.tt-iv-comments [class*="DivCommentContainer"],
@@ -268,8 +286,21 @@ html.tt-minimalist-feed.tt-iv-comments [class*="DivCommentSidebarTransitionWrapp
   max-width: var(--tt-comments-width, 350px) !important;
   height: 100vh !important;
   z-index: 9999 !important;
-  background: #121212 !important;
   animation: ttSlideInRight 0.3s ease forwards !important;
+}
+
+html[data-theme="dark"].tt-minimalist-feed.tt-iv-comments [class*="DivCommentContainer"],
+html[data-theme="dark"].tt-minimalist-feed.tt-iv-comments [class*="AsideCommentSidebar"],
+html[data-theme="dark"].tt-minimalist-feed.tt-iv-comments [class*="DivCommentSidebar"],
+html[data-theme="dark"].tt-minimalist-feed.tt-iv-comments [class*="DivCommentSidebarTransitionWrapper"] {
+  background: #121212 !important;
+}
+
+html:not([data-theme="dark"]).tt-minimalist-feed.tt-iv-comments [class*="DivCommentContainer"],
+html:not([data-theme="dark"]).tt-minimalist-feed.tt-iv-comments [class*="AsideCommentSidebar"],
+html:not([data-theme="dark"]).tt-minimalist-feed.tt-iv-comments [class*="DivCommentSidebar"],
+html:not([data-theme="dark"]).tt-minimalist-feed.tt-iv-comments [class*="DivCommentSidebarTransitionWrapper"] {
+  background: #fff !important;
 }
 
 html.tt-minimalist-feed.tt-iv-comments [class*="SectionCommentSidebarContainer"] {
@@ -303,8 +334,8 @@ html.tt-minimalist-feed article [class*="SectionMediaCardContainer"] [class*="Di
 html.tt-minimalist-feed article [class*="SectionMediaCardContainer"] [class*="DivMediaCardOverlayBottomSection"]::after,
 html.tt-minimalist-feed article [class*="SectionMediaCardContainer"] [class*="DivMediaCardOverlayBottom"]::before,
 html.tt-minimalist-feed article [class*="SectionMediaCardContainer"] [class*="DivMediaCardOverlayBottom"]::after,
-html.tt-minimalist-feed article [class*="SectionMediaCardContainer"] [class*="DivMediaCardOverlayBottomSection"] > div::before,
-html.tt-minimalist-feed article [class*="SectionMediaCardContainer"] [class*="DivMediaCardOverlayBottomSection"] > div::after {
+html.tt-minimalist-feed article [class*="SectionMediaCardContainer"] [class*="DivMediaCardOverlayBottomSection"]>div::before,
+html.tt-minimalist-feed article [class*="SectionMediaCardContainer"] [class*="DivMediaCardOverlayBottomSection"]>div::after {
   background: none !important;
   background-image: none !important;
   display: none !important;
@@ -335,14 +366,14 @@ html.tt-opt-hideScrollbar.tt-minimalist-feed body::-webkit-scrollbar {
   display: none !important;
 }
 
-html.tt-hide-sidebar [class*="BaseBodyContainer"] > div:has([data-e2e="nav-foryou"]),
+html.tt-hide-sidebar [class*="BaseBodyContainer"]>div:has([data-e2e="nav-foryou"]),
 html.tt-hide-sidebar [class*="DivSideNavPlaceholderContainer"],
 html.tt-hide-sidebar [class*="DivSideNavContainer"] {
   visibility: hidden !important;
   pointer-events: none !important;
 }
 
-html.tt-route-profile [class*="BaseBodyContainer"] > div:has([data-e2e="nav-foryou"]),
+html.tt-route-profile [class*="BaseBodyContainer"]>div:has([data-e2e="nav-foryou"]),
 html.tt-route-profile [class*="DivSideNavPlaceholderContainer"],
 html.tt-route-profile [class*="DivSideNavContainer"] {
   visibility: visible !important;
@@ -351,10 +382,10 @@ html.tt-route-profile [class*="DivSideNavContainer"] {
 
 html.tt-hide-headerPills #top-right-action-bar,
 html.tt-hide-headerPills #app-header [class*="DivHeaderRightContainer"],
-html.tt-hide-headerPills #app-header > div:not(:has([data-e2e="tiktok-logo"])):not(:has([data-e2e="search-box"])):not(:has(form)),
-html.tt-hide-headerPills #app-header > div > div:not(:has([data-e2e="tiktok-logo"])):not(:has([data-e2e="search-box"])):not(:has(form)),
-html.tt-hide-headerPills #app-header > [class*="DivHeaderWrapperMain"] > div:last-child:not(:first-child),
-html.tt-hide-headerPills #app-header > div:last-child:not(:first-child):not(:has(form)),
+html.tt-hide-headerPills #app-header>div:not(:has([data-e2e="tiktok-logo"])):not(:has([data-e2e="search-box"])):not(:has(form)),
+html.tt-hide-headerPills #app-header>div>div:not(:has([data-e2e="tiktok-logo"])):not(:has([data-e2e="search-box"])):not(:has(form)),
+html.tt-hide-headerPills #app-header>[class*="DivHeaderWrapperMain"]>div:last-child:not(:first-child),
+html.tt-hide-headerPills #app-header>div:last-child:not(:first-child):not(:has(form)),
 html.tt-hide-headerPills [class*="VideoDetailContentPanelSpacer"],
 html.tt-hide-caption [class*="DivMediaCardOverlayBottomSection"],
 html.tt-hide-progressBar [class*="DivVideoProgressContainer"] {
@@ -428,13 +459,11 @@ html.tt-minimalist-feed #tt-minimalist-feed-ui-right {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   padding: 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 #tt-minimalist-feed-ui button:hover,
 #tt-minimalist-feed-ui-right button:hover {
   background: rgba(255, 255, 255, 0.25);
-  transform: scale(1.06);
 }
 
 #tt-minimalist-feed-ui button:active,
