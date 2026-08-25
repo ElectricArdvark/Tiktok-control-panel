@@ -61,6 +61,15 @@ A comprehensive control panel for TikTok on desktop: toggle minimalist cinema vi
 </tr>
 </table>
 
+### Issues:
+- Photo navigation buttons in minimalist mode
+
+**works in:**
+- [x] FYP 
+- [x] Following
+- [x] Videos from a direct link
+- [ ] Everything else: only playback settings
+
 ## Contributing
 
 Suggestions and contributions are welcome. Feel free to open an [issue](https://github.com/ElectricArdvark/Tiktok-control-panel/issues) or submit a [pull request](https://github.com/ElectricArdvark/Tiktok-control-panel/pulls).
