@@ -456,9 +456,10 @@ html.tt-hide-musicButton [data-e2e="video-music"] {
 }
 html.tt-hide-sidebar #${UI_ID}-right,
 html.${ROOT_CLS} #${UI_ID}-right { left: 14px; }
+
 #${UI_ID} button, #${UI_ID}-right button {
   width: 40px; height: 40px; border-radius: 50%; border: none; cursor: pointer;
-  background: rgba(0,0,0,0); color: #fff;
+  background: rgba(0,0,0,0);
   display: flex; align-items: center; justify-content: center;
   transition: background .15s ease; backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px); padding: 0;
@@ -544,15 +545,28 @@ html.${ROOT_CLS} [class*="DivTabContainer"] {
     return onFeedRoute() || commentsOpen();
   }
 
-  const SVG_CLOSE = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>';
-  const SVG_FULLSCREEN = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>';
-  const SVG_VOL_ON = '<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3 10v4c0 .55.45 1 1 1h3l3.29 3.29c.63.63 1.71.18 1.71-.71V6.41c0-.89-1.08-1.34-1.71-.7L7 9H4c-.55 0-1 .45-1 1zm13.5 2A4.5 4.5 0 0 0 14 7.97v8.05A4.47 4.47 0 0 0 16.5 12zM14 4.45v.2c0 .38.25.71.6.85a7 7 0 0 1 0 13c-.35.14-.6.47-.6.85v.2c0 .63.63 1.07 1.21.85a9 9 0 0 0 0-16.8c-.58-.23-1.21.22-1.21.85z"/></svg>';
-  const SVG_VOL_OFF = '<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3.63 3.63a1 1 0 0 0 0 1.41L7.29 8.7 7 9H4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h3l3.29 3.29c.63.63 1.71.19 1.71-.7v-4.17l4.18 4.18c-.49.37-1.02.68-1.6.91-.36.15-.58.53-.58.92 0 .72.73 1.18 1.39.91a8.9 8.9 0 0 0 2.23-1.31l1.34 1.34a1 1 0 1 0 1.41-1.41L5.05 3.63a1 1 0 0 0-1.42 0zM19 12a6.97 6.97 0 0 1-.82 3.31l1.49 1.49A8.96 8.96 0 0 0 21 12a9 9 0 0 0-7-8.77v2.06c2.89.86 5 3.54 5 6.71zm-8.71-6.29-.17.17L12 7.76V6.41c0-.89-1.08-1.33-1.71-.7zM16.5 12A4.5 4.5 0 0 0 14 7.97v1.79l2.48 2.48c.01-.08.02-.16.02-.24z"/></svg>';
+  const SVG_CLOSE = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>';
+  const SVG_FULLSCREEN = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>';
+  const SVG_VOL_ON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3 10v4c0 .55.45 1 1 1h3l3.29 3.29c.63.63 1.71.18 1.71-.71V6.41c0-.89-1.08-1.34-1.71-.7L7 9H4c-.55 0-1 .45-1 1zm13.5 2A4.5 4.5 0 0 0 14 7.97v8.05A4.47 4.47 0 0 0 16.5 12zM14 4.45v.2c0 .38.25.71.6.85a7 7 0 0 1 0 13c-.35.14-.6.47-.6.85v.2c0 .63.63 1.07 1.21.85a9 9 0 0 0 0-16.8c-.58-.23-1.21.22-1.21.85z"/></svg>';
+  const SVG_VOL_OFF = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3.63 3.63a1 1 0 0 0 0 1.41L7.29 8.7 7 9H4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h3l3.29 3.29c.63.63 1.71.19 1.71-.7v-4.17l4.18 4.18c-.49.37-1.02.68-1.6.91-.36.15-.58.53-.58.92 0 .72.73 1.18 1.39.91a8.9 8.9 0 0 0 2.23-1.31l1.34 1.34a1 1 0 1 0 1.41-1.41L5.05 3.63a1 1 0 0 0-1.42 0zM19 12a6.97 6.97 0 0 1-.82 3.31l1.49 1.49A8.96 8.96 0 0 0 21 12a9 9 0 0 0-7-8.77v2.06c2.89.86 5 3.54 5 6.71zm-8.71-6.29-.17.17L12 7.76V6.41c0-.89-1.08-1.33-1.71-.7zM16.5 12A4.5 4.5 0 0 0 14 7.97v1.79l2.48 2.48c.01-.08.02-.16.02-.24z"/></svg>';
 
   const _svgParser = new DOMParser();
   function setSVG(el, svgStr) {
-    const doc = _svgParser.parseFromString(svgStr, 'image/svg+xml');
-    el.replaceChildren(doc.documentElement.cloneNode(true));
+    try {
+      const doc = _svgParser.parseFromString(svgStr, 'image/svg+xml');
+      const svg = doc.documentElement;
+      if (svg && svg.nodeName === 'svg' && !doc.querySelector('parsererror')) {
+        el.replaceChildren(document.importNode(svg, true));
+        return;
+      }
+    } catch (_) { }
+    try {
+      const doc = _svgParser.parseFromString(svgStr, 'text/html');
+      const svg = doc.querySelector('svg');
+      if (svg) {
+        el.replaceChildren(document.importNode(svg, true));
+      }
+    } catch (_) { }
   }
 
   const ui = document.createElement('div');

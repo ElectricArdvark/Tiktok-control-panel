@@ -37,18 +37,6 @@ A comprehensive control panel for TikTok on desktop: toggle minimalist cinema vi
 4. Click **Load unpacked** (top-left).
 5. Select the extracted `extension` folder.
 6. Click the extension icon in your toolbar to configure settings.
- - **Firefox:**
- 
-[Add-on store](https://addons.mozilla.org/en-US/firefox/addon/tiktok-control-panel/). SOON
-
-**or**
-
-1. [Download the latest extension zip](https://github.com/ElectricArdvark/Tiktok-control-panel/releases/latest/download/tiktok-control-panel-firefox.zip).
-2. Navigate to the Extensions management page:
-   - `about:addons`
-3. Click the **⚙** next to the search bar.
-4. Select Install Add-on From File...Find and select your downloaded **.zip** file, then click Open.
-5. Click Add to confirm.
 
 ## Project Structure
 
