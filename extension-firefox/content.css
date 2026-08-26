@@ -1,0 +1,495 @@
+:root {
+  --tt-comments-width: 350px;
+  --tt-stack-h: 470px;
+  --tt-accent-cyan: #25f4ee;
+  --tt-accent-pink: #fe2c55;
+  --tt-dark-bg: #121212;
+  --tt-card-bg: rgba(22, 22, 26, 0.95);
+  --tt-border: rgba(255, 255, 255, 0.12);
+}
+
+html.tt-minimalist-feed #app-header>[class*="DivHeaderWrapperMain"],
+html.tt-minimalist-feed [class*="DivSideNavPlaceholderContainer"],
+html.tt-minimalist-feed #fixed-top-container,
+html.tt-minimalist-feed [class*="DivFixedBottomContainer"],
+html.tt-minimalist-feed tiktok-cookie-banner {
+  display: none !important;
+}
+
+html.tt-minimalist-feed #app-header>div:has([data-e2e="search-box"]),
+html.tt-minimalist-feed [class*="BaseBodyContainer"]>div:has([data-e2e="nav-foryou"]) {
+  display: none !important;
+}
+
+html.tt-opt-autoHideVideoList:not(.tt-show-video-list) [class*="DivVideoList"] {
+  display: none !important;
+}
+
+html[data-theme="dark"].tt-minimalist-feed,
+html[data-theme="dark"].tt-minimalist-feed body {
+  background: #000 !important;
+}
+
+html:not([data-theme="dark"]).tt-minimalist-feed,
+html:not([data-theme="dark"]).tt-minimalist-feed body {
+  background: #fff !important;
+}
+
+html.tt-minimalist-feed body {
+  overflow-x: clip !important;
+}
+
+html.tt-minimalist-feed #app-header {
+  position: static !important;
+  height: auto !important;
+  padding: 0 !important;
+}
+
+html.tt-minimalist-feed [class*="BaseBodyContainer"],
+html.tt-minimalist-feed [class*="DivMainContainer"] {
+  display: block !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+html.tt-minimalist-feed main[id^="main-content-"],
+html.tt-minimalist-feed #column-list-container {
+  width: 100% !important;
+  max-width: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+html[data-theme="dark"].tt-minimalist-feed main[id^="main-content-"],
+html[data-theme="dark"].tt-minimalist-feed #column-list-container {
+  background: #000 !important;
+}
+
+html:not([data-theme="dark"]).tt-minimalist-feed main[id^="main-content-"],
+html:not([data-theme="dark"]).tt-minimalist-feed #column-list-container {
+  background: #fff !important;
+}
+
+html.tt-minimalist-feed.tt-route-video [class*="BaseBodyContainer"],
+html.tt-minimalist-feed.tt-route-video [class*="DivMainContainer"],
+html.tt-minimalist-feed.tt-route-video main[id^="main-content-"] {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin: 0 auto !important;
+}
+
+html.tt-minimalist-feed [class*="DivFeedPageVideoItem"],
+html.tt-minimalist-feed [class*="DivVideoWrapper"],
+html.tt-minimalist-feed [class*="DivImmersiveVideoContainer"],
+html.tt-minimalist-feed main[id^="main-content-"] {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  transition: width 0.3s ease, max-width 0.3s ease !important;
+}
+
+html.tt-minimalist-feed.tt-iv-comments #column-list-container,
+html.tt-minimalist-feed.tt-iv-comments [class*="DivContentContainer"],
+html.tt-minimalist-feed.tt-iv-comments [class*="DivColumnListContainer"] {
+  margin: 0 !important;
+  padding: 0 !important;
+  max-width: none !important;
+  width: 100% !important;
+  flex-grow: 1 !important;
+}
+
+html.tt-minimalist-feed article[data-e2e="recommend-list-item-container"] {
+  position: relative !important;
+  width: 100% !important;
+  height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: visible !important;
+}
+
+html.tt-minimalist-feed article[data-e2e="recommend-list-item-container"] [class*="DivContentFlexLayout"] {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: 0 !important;
+}
+
+html:not([data-theme="dark"]).tt-minimalist-feed [class*="SectionMediaCardContainer"] [class*="DivMediaCardOverlayBottomSection"],
+html:not([data-theme="dark"]).tt-minimalist-feed [class*="SectionMediaCardContainer"] [class*="DivMediaCardOverlayBottomSection"] *,
+html:not([data-theme="dark"]).tt-minimalist-feed article[data-e2e="recommend-list-item-container"] [class*="SectionActionBarContainer"],
+html:not([data-theme="dark"]).tt-minimalist-feed article[data-e2e="recommend-list-item-container"] [class*="SectionActionBarContainer"] *,
+html:not([data-theme="dark"]).tt-minimalist-feed [class*="AsideOneColumnSidebar"],
+html:not([data-theme="dark"]).tt-minimalist-feed [class*="AsideOneColumnSidebar"] * {
+  color: #121212 !important;
+}
+
+html:not([data-theme="dark"]).tt-minimalist-feed [class*="SectionMediaCardContainer"] [class*="DivVideoProgressContainer"] {
+  filter: invert(1) hue-rotate(180deg) !important;
+}
+
+html.tt-opt-fullHeightVideo.tt-minimalist-feed [class*="SectionMediaCardContainer"][shape="vertical"] {
+  width: 100% !important;
+  height: auto !important;
+  max-width: calc(100vh * 0.5625) !important;
+  max-height: 100vh !important;
+  aspect-ratio: 0.5625 !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+}
+
+html.tt-opt-fullHeightVideo.tt-minimalist-feed [class*="SectionMediaCardContainer"][shape="horizontal"] {
+  width: 100% !important;
+  height: auto !important;
+  max-width: calc(100vh * 1.7778) !important;
+  max-height: 100vh !important;
+  aspect-ratio: 1.7778 !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+}
+
+html.tt-minimalist-feed [class*="SectionMediaCardContainer"],
+html.tt-minimalist-feed [class*="SectionMediaCardContainer"]>[class*="BasePlayerContainer"] {
+  overflow: visible !important;
+}
+
+html.tt-opt-squareCorners [class*="SectionMediaCardContainer"],
+html.tt-opt-squareCorners [class*="SectionMediaCardContainer"]>[class*="BasePlayerContainer"],
+html.tt-opt-squareCorners [class*="SectionMediaCardContainer"] [class*="BasePlayerContainer"]>[class*="DivContainer"],
+html.tt-opt-squareCorners [class*="SectionMediaCardContainer"] [class*="BasePlayerContainer"]>[class*="DivContainer"]>[class*="Box"],
+html.tt-opt-squareCorners [class*="SectionMediaCardContainer"] [class*="DivMediaCardOverlay"],
+html.tt-opt-squareCorners [class*="SectionMediaCardContainer"] [class*="DivMediaCardOverlayBottomSection"],
+html.tt-opt-squareCorners [class*="SectionMediaCardContainer"] [class*="DivMediaCardOverlayBottom"] {
+  border-radius: 0 !important;
+}
+
+html.tt-opt-squareCorners [class*="SectionMediaCardContainer"] [class*="BasePlayerContainer"]>[class*="DivContainer"] {
+  overflow: visible !important;
+}
+
+html.tt-minimalist-feed [class*="SectionMediaCardContainer"] [class*="BasePlayerContainer"],
+html.tt-minimalist-feed [class*="SectionMediaCardContainer"] [class*="BasePlayerContainer"] * {
+  filter: none !important;
+  -webkit-filter: none !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+
+html.tt-minimalist-feed [class*="DivLeftContainer"] {
+  position: relative !important;
+}
+
+html.tt-minimalist-feed article[data-e2e="recommend-list-item-container"] [class*="SectionActionBarContainer"] {
+  position: absolute !important;
+  right: 24px !important;
+  left: auto !important;
+  inset-inline-end: 20px !important;
+  top: auto !important;
+  bottom: 40px !important;
+  z-index: 6 !important;
+}
+
+html.tt-minimalist-feed [class*="AsideOneColumnSidebar"] {
+  position: absolute !important;
+  right: 24px !important;
+  left: auto !important;
+  inset-inline-end: 24px !important;
+  top: auto !important;
+  bottom: calc(55px + var(--tt-stack-h, 470px)) !important;
+  transform: none !important;
+  z-index: 7 !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+html.tt-minimalist-feed [class*="DivFeedNavigationContainer"] {
+  position: relative !important;
+  right: auto !important;
+  left: auto !important;
+  transform: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+}
+
+html.tt-minimalist-feed [class*="DivFeedPageVideoItemContainer"],
+html.tt-minimalist-feed [class*="DivContentContainer"],
+html.tt-minimalist-feed [class*="DivBodyContainer"] {
+  display: flex !important;
+  flex-direction: row !important;
+  width: 100vw !important;
+  max-width: 100vw !important;
+  overflow: hidden !important;
+}
+
+html.tt-minimalist-feed.tt-iv-comments.tt-route-video [class*="BaseBodyContainer"],
+html.tt-minimalist-feed.tt-iv-comments.tt-route-video [class*="DivMainContainer"],
+html.tt-minimalist-feed.tt-iv-comments.tt-route-video main[id^="main-content-"],
+html.tt-minimalist-feed.tt-iv-comments.tt-route-video [class*="DivLeftContainer"] {
+  width: calc(100vw - var(--tt-comments-width, 350px)) !important;
+  max-width: calc(100vw - var(--tt-comments-width, 350px)) !important;
+  margin-right: auto !important;
+  margin-left: 0 !important;
+  float: none !important;
+  transition: width 0.3s ease, max-width 0.3s ease !important;
+}
+
+html.tt-minimalist-feed.tt-iv-comments:not(.tt-route-video) main[id^="main-content-"],
+html.tt-minimalist-feed.tt-iv-comments:not(.tt-route-video) [class*="DivMainContainer"] {
+  width: calc(100vw - var(--tt-comments-width, 350px)) !important;
+  max-width: calc(100vw - var(--tt-comments-width, 350px)) !important;
+  margin: 0 !important;
+  transition: width 0.3s ease, max-width 0.3s ease !important;
+}
+
+html.tt-minimalist-feed.tt-iv-comments [class*="SectionActionBarContainer"] {
+  position: absolute !important;
+  right: 20px !important;
+  left: auto !important;
+  z-index: 99 !important;
+}
+
+html.tt-minimalist-feed.tt-iv-comments [class*="AsideOneColumnSidebar"] {
+  position: absolute !important;
+  right: 24px !important;
+  left: auto !important;
+  z-index: 99 !important;
+}
+
+@keyframes ttSlideInRight {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+html.tt-minimalist-feed.tt-iv-comments [class*="DivCommentContainer"],
+html.tt-minimalist-feed.tt-iv-comments [class*="AsideCommentSidebar"],
+html.tt-minimalist-feed.tt-iv-comments [class*="DivCommentSidebar"],
+html.tt-minimalist-feed.tt-iv-comments [class*="DivCommentSidebarTransitionWrapper"] {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: auto !important;
+  max-width: var(--tt-comments-width, 350px) !important;
+  height: 100vh !important;
+  z-index: 9999 !important;
+  animation: ttSlideInRight 0.3s ease forwards !important;
+}
+
+html[data-theme="dark"].tt-minimalist-feed.tt-iv-comments [class*="DivCommentContainer"],
+html[data-theme="dark"].tt-minimalist-feed.tt-iv-comments [class*="AsideCommentSidebar"],
+html[data-theme="dark"].tt-minimalist-feed.tt-iv-comments [class*="DivCommentSidebar"],
+html[data-theme="dark"].tt-minimalist-feed.tt-iv-comments [class*="DivCommentSidebarTransitionWrapper"] {
+  background: #121212 !important;
+}
+
+html:not([data-theme="dark"]).tt-minimalist-feed.tt-iv-comments [class*="DivCommentContainer"],
+html:not([data-theme="dark"]).tt-minimalist-feed.tt-iv-comments [class*="AsideCommentSidebar"],
+html:not([data-theme="dark"]).tt-minimalist-feed.tt-iv-comments [class*="DivCommentSidebar"],
+html:not([data-theme="dark"]).tt-minimalist-feed.tt-iv-comments [class*="DivCommentSidebarTransitionWrapper"] {
+  background: #fff !important;
+}
+
+html.tt-minimalist-feed.tt-iv-comments [class*="SectionCommentSidebarContainer"] {
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  box-sizing: border-box !important;
+}
+
+html.tt-minimalist-feed.tt-iv-comments [class*="DivCommentContainer"] [class*="DivCommentSidebar"],
+html.tt-minimalist-feed.tt-iv-comments [class*="AsideCommentSidebar"] [class*="DivCommentSidebar"],
+html.tt-minimalist-feed.tt-iv-comments [class*="DivCommentSidebarTransitionWrapper"] [class*="SectionCommentSidebarContainer"] {
+  animation: none !important;
+  position: static !important;
+}
+
+html.tt-minimalist-feed article [class*="SectionMediaCardContainer"] [class*="DivMediaCardOverlayBottomSection"],
+html.tt-minimalist-feed article [class*="SectionMediaCardContainer"] [class*="DivMediaCardOverlayBottomSection"] * {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html.tt-minimalist-feed article [class*="SectionMediaCardContainer"] [class*="DivMediaCardOverlayBottomSection"]::before,
+html.tt-minimalist-feed article [class*="SectionMediaCardContainer"] [class*="DivMediaCardOverlayBottomSection"]::after,
+html.tt-minimalist-feed article [class*="SectionMediaCardContainer"] [class*="DivMediaCardOverlayBottom"]::before,
+html.tt-minimalist-feed article [class*="SectionMediaCardContainer"] [class*="DivMediaCardOverlayBottom"]::after,
+html.tt-minimalist-feed article [class*="SectionMediaCardContainer"] [class*="DivMediaCardOverlayBottomSection"]>div::before,
+html.tt-minimalist-feed article [class*="SectionMediaCardContainer"] [class*="DivMediaCardOverlayBottomSection"]>div::after {
+  background: none !important;
+  background-image: none !important;
+  display: none !important;
+  content: none !important;
+}
+
+html.tt-minimalist-feed [class*="SectionMediaCardContainer"] [class*="DivMediaCardOverlayBottomSection"] {
+  transform: translate(var(--tt-cap-x, 0px), var(--tt-cap-y, 0px)) !important;
+  transition: transform 0s !important;
+  width: min(500px, 44vw) !important;
+  z-index: 8 !important;
+}
+
+html.tt-minimalist-feed [class*="SectionMediaCardContainer"] [class*="DivVideoProgressContainer"] {
+  transform: translate(var(--tt-prog-x, 0px), var(--tt-prog-y, 0px)) !important;
+  transition: transform 0s !important;
+  width: calc(var(--tt-art-width, 100vw) - 2vw) !important;
+  max-width: none !important;
+  z-index: 8 !important;
+}
+
+html.tt-opt-hideScrollbar.tt-minimalist-feed {
+  scrollbar-width: none !important;
+}
+
+html.tt-opt-hideScrollbar.tt-minimalist-feed::-webkit-scrollbar,
+html.tt-opt-hideScrollbar.tt-minimalist-feed body::-webkit-scrollbar {
+  display: none !important;
+}
+
+html.tt-hide-sidebar [class*="BaseBodyContainer"]>div:has([data-e2e="nav-foryou"]),
+html.tt-hide-sidebar [class*="DivSideNavPlaceholderContainer"],
+html.tt-hide-sidebar [class*="DivSideNavContainer"] {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+html.tt-route-profile [class*="BaseBodyContainer"]>div:has([data-e2e="nav-foryou"]),
+html.tt-route-profile [class*="DivSideNavPlaceholderContainer"],
+html.tt-route-profile [class*="DivSideNavContainer"] {
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+html.tt-hide-headerPills #top-right-action-bar,
+html.tt-hide-headerPills #app-header [class*="DivHeaderRightContainer"],
+html.tt-hide-headerPills #app-header>div:not(:has([data-e2e="tiktok-logo"])):not(:has([data-e2e="search-box"])):not(:has(form)),
+html.tt-hide-headerPills #app-header>div>div:not(:has([data-e2e="tiktok-logo"])):not(:has([data-e2e="search-box"])):not(:has(form)),
+html.tt-hide-headerPills #app-header>[class*="DivHeaderWrapperMain"]>div:last-child:not(:first-child),
+html.tt-hide-headerPills #app-header>div:last-child:not(:first-child):not(:has(form)),
+html.tt-hide-headerPills [class*="VideoDetailContentPanelSpacer"],
+html.tt-hide-caption [class*="DivMediaCardOverlayBottomSection"],
+html.tt-hide-progressBar [class*="DivVideoProgressContainer"] {
+  display: none !important;
+}
+
+html.tt-hide-navButtons [class*="DivFeedNavigationContainer"],
+html.tt-hide-avatar [class*="DivAvatarActionItemContainer"],
+html.tt-hide-likeButton [data-e2e="like-icon"],
+html.tt-hide-likeButton [data-e2e="like-count"],
+html.tt-hide-commentButton [data-e2e="comment-icon"],
+html.tt-hide-commentButton [data-e2e="comment-count"],
+html.tt-hide-favoriteButton [data-e2e="favorite-icon"],
+html.tt-hide-favoriteButton [data-e2e="favorite-count"],
+html.tt-hide-shareButton [data-e2e="share-icon"],
+html.tt-hide-shareButton [data-e2e="share-count"],
+html.tt-hide-musicButton [data-e2e="video-music"] {
+  visibility: hidden !important;
+  pointer-events: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  opacity: 0 !important;
+  overflow: hidden !important;
+}
+
+#tt-minimalist-feed-ui,
+#tt-minimalist-feed-ui-right {
+  position: fixed;
+  z-index: 2147483000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  user-select: none;
+}
+
+#tt-minimalist-feed-ui {
+  top: 14px;
+  left: 14px;
+}
+
+#tt-minimalist-feed-ui-right {
+  top: 14px;
+  left: 132px;
+  right: auto;
+  flex-direction: row;
+  transition: left 0.25s cubic-bezier(0.4, 0, 0.2, 1), top 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html.tt-hide-sidebar #tt-minimalist-feed-ui-right,
+html.tt-minimalist-feed #tt-minimalist-feed-ui-right {
+  left: 14px;
+}
+
+#tt-minimalist-feed-ui button,
+#tt-minimalist-feed-ui-right button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: rgba(20, 20, 24, 0.65);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.18s ease, transform 0.15s ease, box-shadow 0.18s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 0;
+}
+
+#tt-minimalist-feed-ui button:hover,
+#tt-minimalist-feed-ui-right button:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+#tt-minimalist-feed-ui button:active,
+#tt-minimalist-feed-ui-right button:active {
+  transform: scale(0.96);
+}
+
+html:not([data-theme="dark"]) #tt-minimalist-feed-ui button,
+html:not([data-theme="dark"]) #tt-minimalist-feed-ui-right button {
+  color: #121212;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+html:not([data-theme="dark"]) #tt-minimalist-feed-ui button:hover,
+html:not([data-theme="dark"]) #tt-minimalist-feed-ui-right button:hover {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+html.tt-minimalist-feed [class*="DivRelatedTabContainer"],
+html.tt-minimalist-feed [class*="DivTabContainer"] {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  flex: 1 1 100% !important;
+  box-sizing: border-box !important;
+}

@@ -1,14 +1,15 @@
-name: Package Extension
+name: Package Extensions
 
 on:
   push:
     branches: [main]
     paths:
       - 'extension/**'
+      - 'extension-firefox/**'
   workflow_dispatch:
 
 jobs:
-  release:
+  release-chromium:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -43,4 +44,41 @@ jobs:
           tag_name: v${{ steps.version.outputs.version }}
           name: v${{ steps.version.outputs.version }}
           files: tiktok-control-panel.zip
+          generate_release_notes: true
+
+  release-firefox:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get version from manifest
+        id: version
+        run: echo "version=$(node -p "require('./extension-firefox/manifest.json').version")" >> $GITHUB_OUTPUT
+
+      - name: Check if tag already exists
+        id: check
+        run: |
+          tag="v${{ steps.version.outputs.version }}"
+          if git rev-parse -q --verify "$tag" > /dev/null 2>&1; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "Tag $tag already exists. Skipping release creation."
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create extension zip
+        if: steps.check.outputs.exists == 'false'
+        run: cd extension-firefox && zip -r ../tiktok-control-panel-firefox.zip .
+
+      - name: Create Release
+        if: steps.check.outputs.exists == 'false'
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: v${{ steps.version.outputs.version }}
+          files: tiktok-control-panel-firefox.zip
           generate_release_notes: true
