@@ -43,6 +43,8 @@
     SEEK_DUR: 'tt-minimalist-feed:seekDur',
     SEEK_ENABLED: 'tt-minimalist-feed:seekEnabled',
     BG_PLAY: 'tt-minimalist-feed:bgPlayback',
+    HOLD_SPEED_ENABLED: 'tt-minimalist-feed:holdSpeedEnabled',
+    HOLD_SPEED_RATE: 'tt-minimalist-feed:holdSpeedRate',
   };
 
   const ROOT_CLS = 'tt-minimalist-feed';
@@ -83,6 +85,8 @@
           [STORAGE_KEYS.SEEK_DUR]: 'seekDuration',
           [STORAGE_KEYS.SEEK_ENABLED]: 'seekEnabled',
           [STORAGE_KEYS.BG_PLAY]: 'bgPlaybackEnabled',
+          [STORAGE_KEYS.HOLD_SPEED_ENABLED]: 'holdSpeedEnabled',
+          [STORAGE_KEYS.HOLD_SPEED_RATE]: 'holdSpeedRate',
         };
         const prop = map[key];
         if (prop) chrome.storage.local.set({ [prop]: val });
@@ -508,6 +512,8 @@ html.${ROOT_CLS} [class*="DivTabContainer"] {
   let seekDuration = getStorage(STORAGE_KEYS.SEEK_DUR, 3);
   let seekEnabled = getStorage(STORAGE_KEYS.SEEK_ENABLED, true);
   let bgPlaybackEnabled = getStorage(STORAGE_KEYS.BG_PLAY, false);
+  let holdSpeedEnabled = getStorage(STORAGE_KEYS.HOLD_SPEED_ENABLED, true);
+  let holdSpeedRate = getStorage(STORAGE_KEYS.HOLD_SPEED_RATE, 2.0);
   let isMuted = false;
   let extensionActive = true;
 
@@ -872,6 +878,45 @@ html.${ROOT_CLS} [class*="DivTabContainer"] {
     applySettings();
   }
 
+  /* ─ Fast-Forward Speed on Hold Space ─ */
+  let isSpaceDown = false;
+  let spaceHoldTimer = null;
+  let is2xActive = false;
+  let activeSpeedVideo = null;
+  let originalPlaybackRate = 1;
+
+  function start2xSpeed() {
+    if (!holdSpeedEnabled || is2xActive) return;
+    const vid = activeVideo();
+    if (!vid) return;
+    activeSpeedVideo = vid;
+    originalPlaybackRate = vid.playbackRate || 1;
+    vid.playbackRate = holdSpeedRate;
+    is2xActive = true;
+  }
+
+  function stop2xSpeed() {
+    if (spaceHoldTimer) {
+      clearTimeout(spaceHoldTimer);
+      spaceHoldTimer = null;
+    }
+    if (is2xActive) {
+      if (activeSpeedVideo) {
+        try {
+          activeSpeedVideo.playbackRate = originalPlaybackRate || 1.0;
+        } catch (e) { }
+      }
+      const curVid = activeVideo();
+      if (curVid && curVid !== activeSpeedVideo) {
+        try {
+          curVid.playbackRate = 1.0;
+        } catch (e) { }
+      }
+      is2xActive = false;
+      activeSpeedVideo = null;
+    }
+  }
+
   window.addEventListener('keydown', (e) => {
     const t = e.target;
     if (t && t.closest && t.closest('input, textarea, [contenteditable="true"]')) return;
@@ -893,6 +938,29 @@ html.${ROOT_CLS} [class*="DivTabContainer"] {
       return;
     }
 
+    if (e.key === ' ' || e.key === 'Spacebar' || e.code === 'Space') {
+      if ((onMinimalistRoute() || activeVideo()) && (holdSpeedEnabled || settings.spacebarPause)) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.repeat) {
+          if (holdSpeedEnabled && !is2xActive) start2xSpeed();
+          return;
+        }
+        if (!isSpaceDown) {
+          isSpaceDown = true;
+          if (spaceHoldTimer) clearTimeout(spaceHoldTimer);
+          if (holdSpeedEnabled) {
+            spaceHoldTimer = setTimeout(() => {
+              if (isSpaceDown) {
+                start2xSpeed();
+              }
+            }, 200);
+          }
+        }
+        return;
+      }
+    }
+
     const k = (e.key || '').toLowerCase();
     if (e.key === 'Escape' && enabled && onMinimalistRoute()) {
       setEnabled(false);
@@ -900,16 +968,36 @@ html.${ROOT_CLS} [class*="DivTabContainer"] {
       setEnabled(!enabled);
     } else if (k === CONFIG.muteKey && enabled && onMinimalistRoute()) {
       toggleMute();
-    } else if (e.key === ' ' && onMinimalistRoute() && settings.spacebarPause) {
-      e.preventDefault();
-      e.stopPropagation();
-      const vid = activeVideo();
-      if (vid) {
-        if (vid.paused) vid.play();
-        else vid.pause();
+    }
+  }, true);
+
+  window.addEventListener('keyup', (e) => {
+    const t = e.target;
+    if (t && t.closest && t.closest('input, textarea, [contenteditable="true"]')) return;
+
+    if (e.key === ' ' || e.key === 'Spacebar' || e.code === 'Space') {
+      if (isSpaceDown) {
+        e.preventDefault();
+        e.stopPropagation();
+        const was2x = is2xActive;
+        isSpaceDown = false;
+        stop2xSpeed();
+
+        if (!was2x && settings.spacebarPause && (onMinimalistRoute() || activeVideo())) {
+          const vid = activeVideo();
+          if (vid) {
+            if (vid.paused) vid.play();
+            else vid.pause();
+          }
+        }
       }
     }
   }, true);
+
+  window.addEventListener('blur', () => {
+    isSpaceDown = false;
+    stop2xSpeed();
+  });
 
   let lastKey = null;
   window._ttVideoListUnhidden = false;
@@ -963,6 +1051,8 @@ html.${ROOT_CLS} [class*="DivTabContainer"] {
           seekDuration,
           seekEnabled,
           bgPlaybackEnabled,
+          holdSpeedEnabled,
+          holdSpeedRate,
           extensionActive,
           isMinimalistRoute: onMinimalistRoute(),
         });
@@ -998,12 +1088,19 @@ html.${ROOT_CLS} [class*="DivTabContainer"] {
           bgPlaybackEnabled = request.bgPlaybackEnabled;
           saveBgPlayback();
         }
+        if (typeof request.holdSpeedEnabled === 'boolean') holdSpeedEnabled = request.holdSpeedEnabled;
+        if (typeof request.holdSpeedRate === 'number') holdSpeedRate = request.holdSpeedRate;
+        if (is2xActive && activeSpeedVideo) {
+          activeSpeedVideo.playbackRate = holdSpeedRate;
+        }
         if (typeof request.extensionActive === 'boolean') extensionActive = request.extensionActive;
 
         setStorage(STORAGE_KEYS.SETTINGS, settings);
         setStorage(STORAGE_KEYS.AUTOSTART, autostartEnabled);
         setStorage(STORAGE_KEYS.SEEK_DUR, seekDuration);
         setStorage(STORAGE_KEYS.SEEK_ENABLED, seekEnabled);
+        setStorage(STORAGE_KEYS.HOLD_SPEED_ENABLED, holdSpeedEnabled);
+        setStorage(STORAGE_KEYS.HOLD_SPEED_RATE, holdSpeedRate);
         apply();
         sendResponse({ success: true });
         return true;

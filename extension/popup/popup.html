@@ -27,7 +27,7 @@
         </div>
         <div class="brand-text">
           <h1>TikTok Control Panel</h1>
-          <span class="version-badge">v1.1</span>
+          <span class="version-badge">v1.2</span>
         </div>
       </div>
       <label class="header-enable-toggle" id="headerEnableWrapper" title="Enable / Disable the extension">
@@ -291,6 +291,30 @@
 
           <div class="setting-row">
             <div class="setting-info">
+              <span class="setting-name">Hold Spacebar to speed-up</span>
+              <span class="setting-hint">Hold spacebar to temporarily speed up video playback</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="chk-holdSpeed">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-row-stacked" id="holdSpeedRow">
+            <div class="stacked-label-row">
+              <span class="setting-name">Speed</span>
+              <span class="step-badge" id="speedRateBadge">2x</span>
+            </div>
+            <div class="segmented-control" id="holdSpeedSegments">
+              <button type="button" class="seg-btn" data-rate="1.5">1.5x</button>
+              <button type="button" class="seg-btn active" data-rate="2">2x</button>
+              <button type="button" class="seg-btn" data-rate="2.5">2.5x</button>
+              <button type="button" class="seg-btn" data-rate="3">3x</button>
+            </div>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-info">
               <span class="setting-name">Arrow Key Seeking</span>
               <span class="setting-hint">Left / Right Keyboard arrows jump video position</span>
             </div>
@@ -334,7 +358,7 @@
           </div>
           <div class="shortcut-item">
             <kbd>Space</kbd>
-            <span>Play / Pause Video</span>
+            <span>Play / Pause (Tap) • Speed-up (Hold)</span>
           </div>
           <div class="shortcut-item">
             <kbd>←</kbd> <kbd>→</kbd>

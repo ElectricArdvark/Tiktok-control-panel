@@ -6,6 +6,8 @@ chrome.runtime.onInstalled.addListener((details) => {
       enabled: false,
       autostartEnabled: false,
       bgPlaybackEnabled: false,
+      holdSpeedEnabled: true,
+      holdSpeedRate: 2.0,
       seekEnabled: true,
       seekDuration: 3,
       settings: {

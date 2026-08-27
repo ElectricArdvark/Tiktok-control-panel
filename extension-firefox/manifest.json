@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "TikTok Control Panel",
-  "version": "1.1",
+  "version": "1.2",
   "description": "Control panel for TikTok: customize element visibility (sidebar, action bar, captions, pills...), enable background playback, arrow seeking, spacebar to pause, minimalist mode...",
   "background": {
     "scripts": [

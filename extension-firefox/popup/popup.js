@@ -8,6 +8,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const chkAutostart = document.getElementById('chk-autostart');
   const chkBgPlayback = document.getElementById('chk-bgPlayback');
+  const chkHoldSpeed = document.getElementById('chk-holdSpeed');
+  const holdSpeedRow = document.getElementById('holdSpeedRow');
+  const speedRateBadge = document.getElementById('speedRateBadge');
+  const segBtns = document.querySelectorAll('#holdSpeedSegments .seg-btn');
   const chkSeekEnabled = document.getElementById('chk-seekEnabled');
   const rngSeekDuration = document.getElementById('rng-seekDuration');
   const seekDurBadge = document.getElementById('seekDurBadge');
@@ -39,6 +43,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     enabled: false,
     autostartEnabled: false,
     bgPlaybackEnabled: false,
+    holdSpeedEnabled: true,
+    holdSpeedRate: 2.0,
     seekEnabled: true,
     seekDuration: 3,
     settings: {
@@ -88,6 +94,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       'enabled',
       'autostartEnabled',
       'bgPlaybackEnabled',
+      'holdSpeedEnabled',
+      'holdSpeedRate',
       'seekEnabled',
       'seekDuration',
       'settings',
@@ -97,6 +105,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (typeof stored.enabled === 'boolean') state.enabled = stored.enabled;
     if (typeof stored.autostartEnabled === 'boolean') state.autostartEnabled = stored.autostartEnabled;
     if (typeof stored.bgPlaybackEnabled === 'boolean') state.bgPlaybackEnabled = stored.bgPlaybackEnabled;
+    if (typeof stored.holdSpeedEnabled === 'boolean') state.holdSpeedEnabled = stored.holdSpeedEnabled;
+    if (typeof stored.holdSpeedRate === 'number') state.holdSpeedRate = stored.holdSpeedRate;
     if (typeof stored.seekEnabled === 'boolean') state.seekEnabled = stored.seekEnabled;
     if (typeof stored.seekDuration === 'number') state.seekDuration = stored.seekDuration;
     if (stored.settings) state.settings = { ...state.settings, ...stored.settings };
@@ -112,6 +122,8 @@ document.addEventListener('DOMContentLoaded', async () => {
           if (typeof res.enabled === 'boolean') state.enabled = res.enabled;
           if (typeof res.autostartEnabled === 'boolean') state.autostartEnabled = res.autostartEnabled;
           if (typeof res.bgPlaybackEnabled === 'boolean') state.bgPlaybackEnabled = res.bgPlaybackEnabled;
+          if (typeof res.holdSpeedEnabled === 'boolean') state.holdSpeedEnabled = res.holdSpeedEnabled;
+          if (typeof res.holdSpeedRate === 'number') state.holdSpeedRate = res.holdSpeedRate;
           if (typeof res.seekEnabled === 'boolean') state.seekEnabled = res.seekEnabled;
           if (typeof res.seekDuration === 'number') state.seekDuration = res.seekDuration;
           if (res.settings) state.settings = { ...state.settings, ...res.settings };
@@ -132,6 +144,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (masterToggle) masterToggle.checked = state.enabled;
     chkAutostart.checked = state.autostartEnabled;
     chkBgPlayback.checked = state.bgPlaybackEnabled;
+    if (chkHoldSpeed) chkHoldSpeed.checked = state.holdSpeedEnabled;
+    if (holdSpeedRow) {
+      holdSpeedRow.style.opacity = state.holdSpeedEnabled ? '1' : '0.4';
+      holdSpeedRow.style.pointerEvents = state.holdSpeedEnabled ? 'auto' : 'none';
+    }
+    if (speedRateBadge) speedRateBadge.textContent = `${state.holdSpeedRate}x`;
+    segBtns.forEach((btn) => {
+      const rate = parseFloat(btn.dataset.rate);
+      btn.classList.toggle('active', rate === state.holdSpeedRate);
+    });
     chkSeekEnabled.checked = state.seekEnabled;
     rngSeekDuration.value = state.seekDuration;
     seekDurBadge.textContent = `${state.seekDuration}s`;
@@ -163,6 +185,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       enabled: state.enabled,
       autostartEnabled: state.autostartEnabled,
       bgPlaybackEnabled: state.bgPlaybackEnabled,
+      holdSpeedEnabled: state.holdSpeedEnabled,
+      holdSpeedRate: state.holdSpeedRate,
       seekEnabled: state.seekEnabled,
       seekDuration: state.seekDuration,
       settings: state.settings,
@@ -176,6 +200,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         enabled: state.enabled,
         autostartEnabled: state.autostartEnabled,
         bgPlaybackEnabled: state.bgPlaybackEnabled,
+        holdSpeedEnabled: state.holdSpeedEnabled,
+        holdSpeedRate: state.holdSpeedRate,
         seekEnabled: state.seekEnabled,
         seekDuration: state.seekDuration,
         settings: state.settings,
@@ -208,6 +234,23 @@ document.addEventListener('DOMContentLoaded', async () => {
   chkBgPlayback.addEventListener('change', async (e) => {
     state.bgPlaybackEnabled = e.target.checked;
     await persistAndSync();
+  });
+
+  if (chkHoldSpeed) {
+    chkHoldSpeed.addEventListener('change', async (e) => {
+      state.holdSpeedEnabled = e.target.checked;
+      renderUi();
+      await persistAndSync();
+    });
+  }
+
+  segBtns.forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const rate = parseFloat(btn.dataset.rate) || 2.0;
+      state.holdSpeedRate = rate;
+      renderUi();
+      await persistAndSync();
+    });
   });
 
   chkSeekEnabled.addEventListener('change', async (e) => {

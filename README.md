@@ -13,7 +13,7 @@ A comprehensive control panel for TikTok on desktop: toggle minimalist cinema vi
 - **Element Visibility Customization**: Selectively hide or display, sidebar, action bar icons (avatar, like, comment, bookmark, share, music), progress bar, captions...
 - **Background Playback**: Keeps TikTok audio and video playing uninterrupted when switching tabs or minimizing the window.
 - **Configurable Arrow Seeking**: Left/Right arrow key seeking with customizable step duration in seconds.
-- **Spacebar Video Pause**: Pauses the active video rather than scrolling the page.
+- **Video Controls**: Hold spacebar to speed-up video, Press spacebar to Pause the active video rather than scrolling the page.
 - **Extra Buttons**: Adds mute / fullscreen buttons.
 
 ## Installation
@@ -22,7 +22,7 @@ A comprehensive control panel for TikTok on desktop: toggle minimalist cinema vi
 1. Install a userscript manager browser extension:
     - [Violentmonkey](https://violentmonkey.github.io/) (Recommended)
     - [Tampermonkey](https://www.tampermonkey.net/)
-2. Click **[this link](https://raw.githubusercontent.com/ElectricArdvark/Tiktok-control-panel/main/userscript/tiktok-control-panel.user.js)** — the extension will prompt you to install it.
+2. Click **[this link](https://raw.githubusercontent.com/ElectricArdvark/Tiktok-control-panel/main/userscript/tiktok-control-panel.user.js)** — the extension will prompt you to install it. Enable auto-update (rerecommended).
 4. To access the control panel, click the userscript manager icon → **Control Panel Settings**. Change settings as you see fit.
 5. Done.
 
@@ -53,10 +53,10 @@ A comprehensive control panel for TikTok on desktop: toggle minimalist cinema vi
 <td><img src="https://i.ibb.co/j7yyDFy/1.png" width="180"></td>
 <td><img src="https://i.ibb.co/NgsrPxkT/2.png" width="180"></td>
 <td><img src="https://i.ibb.co/Kp6d505g/3.png" width="180"></td>
-<td><img src="https://i.ibb.co/PJBvBV4/4.png" width="180"></td>
-<td><img src="https://i.ibb.co/4wkZYBrS/5.png" width="180"></td>
+<td><img src="https://i.ibb.co/PZHvq4jK/6.png" width="180"></td>
 </tr>
 <tr>
+<td><img src="https://i.ibb.co/4wkZYBrS/5.png" width="180"></td>
 <td>Before<img src="https://i.ibb.co/Xf0dv5L9/Screenshot-112.png" width="180"></td>
 <td>After<img src="https://i.ibb.co/Ldw1hFky/Screenshot-114.png" width="180"></td>
 </tr>

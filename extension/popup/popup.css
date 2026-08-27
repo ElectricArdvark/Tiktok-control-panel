@@ -411,6 +411,40 @@ body {
   margin-top: 2px;
 }
 
+.segmented-control {
+  display: flex;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 3px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.seg-btn {
+  flex: 1;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 6px 0;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+  text-align: center;
+}
+
+.seg-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.seg-btn.active {
+  background: rgba(37, 244, 238, 0.15);
+  color: var(--accent-cyan);
+  border-color: rgba(37, 244, 238, 0.35);
+}
+
 .shortcuts-card {
   display: flex;
   flex-direction: column;

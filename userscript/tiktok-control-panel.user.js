@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         TikTok Control Panel
 // @namespace    https://tampermonkey.net/
-// @version      1.1
+// @version      1.2
 // @description  Control panel for TikTok: customize element visibility (sidebar, action bar, captions, pills...), enable background playback, arrow seeking, spacebar to pause, minimalist mode...
-// @author       ElectricArdvark
+// @author       ElectricArdvark https://github.com/ElectricArdvark
 // @match        https://www.tiktok.com/*
 // @icon         https://www.tiktok.com/favicon.ico
 // @run-at       document-start
@@ -62,6 +62,8 @@
     SEEK_DUR: 'tt-minimalist-feed:seekDur',
     SEEK_ENABLED: 'tt-minimalist-feed:seekEnabled',
     BG_PLAY: 'tt-minimalist-feed:bgPlayback',
+    HOLD_SPEED_ENABLED: 'tt-minimalist-feed:holdSpeedEnabled',
+    HOLD_SPEED_RATE: 'tt-minimalist-feed:holdSpeedRate',
   };
 
   const ROOT_CLS = 'tt-minimalist-feed';
@@ -636,6 +638,37 @@ html:not([data-theme="dark"]) #${UI_ID}-right button:not(.tt-pill):hover {
   font-size: 9.5px; color: rgba(255, 255, 255, 0.35);
 }
 
+#tt-settings-menu .tt-s-segmented {
+  display: flex;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 3px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+#tt-settings-menu .tt-s-seg-btn {
+  flex: 1;
+  background: transparent;
+  border: 1px solid transparent;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 6px 0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+  text-align: center;
+}
+#tt-settings-menu .tt-s-seg-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+}
+#tt-settings-menu .tt-s-seg-btn.active {
+  background: rgba(37, 244, 238, 0.15);
+  color: #25f4ee;
+  border-color: rgba(37, 244, 238, 0.35);
+}
+
 #tt-settings-menu .tt-s-shortcuts {
   display: flex; flex-direction: column; gap: 6px;
 }
@@ -691,6 +724,8 @@ html.${ROOT_CLS} [class*="DivTabContainer"] {
   let seekDuration = getStorage(STORAGE_KEYS.SEEK_DUR, 3);
   let seekEnabled = getStorage(STORAGE_KEYS.SEEK_ENABLED, true);
   let bgPlaybackEnabled = getStorage(STORAGE_KEYS.BG_PLAY, false);
+  let holdSpeedEnabled = getStorage(STORAGE_KEYS.HOLD_SPEED_ENABLED, true);
+  let holdSpeedRate = getStorage(STORAGE_KEYS.HOLD_SPEED_RATE, 2.0);
   let isMuted = false;
 
   function isSearchRoute() {
@@ -1023,6 +1058,67 @@ html.${ROOT_CLS} [class*="DivTabContainer"] {
     panelPlayback.appendChild(row);
   }
 
+  const { row: rowHoldSpeed } = makeToggle(
+    'Hold Spacebar to speed-up', holdSpeedEnabled,
+    v => {
+      holdSpeedEnabled = v;
+      speedRow.style.opacity = v ? '1' : '0.4';
+      speedRow.style.pointerEvents = v ? 'auto' : 'none';
+      setStorage(STORAGE_KEYS.HOLD_SPEED_ENABLED, v);
+    },
+    true
+  );
+  panelPlayback.appendChild(rowHoldSpeed);
+
+  const speedRow = document.createElement('div');
+  speedRow.className = 'tt-s-stacked-row';
+  speedRow.style.opacity = holdSpeedEnabled ? '1' : '0.4';
+  speedRow.style.pointerEvents = holdSpeedEnabled ? 'auto' : 'none';
+
+  const speedHeader = document.createElement('div');
+  speedHeader.className = 'tt-s-stacked-header';
+
+  const lblSpeedText = document.createElement('span');
+  lblSpeedText.className = 'tt-s-label';
+  lblSpeedText.textContent = 'Speed';
+
+  const speedRateBadge = document.createElement('span');
+  speedRateBadge.className = 'tt-s-badge';
+  speedRateBadge.textContent = `${holdSpeedRate}x`;
+
+  speedHeader.appendChild(lblSpeedText);
+  speedHeader.appendChild(speedRateBadge);
+
+  const segGroup = document.createElement('div');
+  segGroup.className = 'tt-s-segmented';
+
+  const speedOptions = [1.5, 2.0, 2.5, 3.0];
+  const speedBtns = [];
+
+  speedOptions.forEach(rate => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'tt-s-seg-btn' + (holdSpeedRate === rate ? ' active' : '');
+    btn.textContent = `${rate}x`;
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      holdSpeedRate = rate;
+      speedRateBadge.textContent = `${rate}x`;
+      speedBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      setStorage(STORAGE_KEYS.HOLD_SPEED_RATE, rate);
+      if (is2xActive && activeSpeedVideo) {
+        activeSpeedVideo.playbackRate = rate;
+      }
+    });
+    speedBtns.push(btn);
+    segGroup.appendChild(btn);
+  });
+
+  speedRow.appendChild(speedHeader);
+  speedRow.appendChild(segGroup);
+  panelPlayback.appendChild(speedRow);
+
   let rngSeek;
   const durationRow = document.createElement('div');
   durationRow.className = 'tt-s-stacked-row';
@@ -1085,7 +1181,7 @@ html.${ROOT_CLS} [class*="DivTabContainer"] {
   const shortcutsList = [
     { kbd: '<kbd>C</kbd>', desc: 'Toggle Minimalist Mode' },
     { kbd: '<kbd>M</kbd>', desc: 'Mute / Unmute Sound' },
-    { kbd: '<kbd>Space</kbd>', desc: 'Play / Pause Video' },
+    { kbd: '<kbd>Space</kbd>', desc: 'Play / Pause (Tap) • Speed-up (Hold)' },
     { kbd: '<kbd>←</kbd> <kbd>→</kbd>', desc: 'Seek Backward / Forward' },
     { kbd: '<kbd>F11</kbd>', desc: 'Fullscreen' },
   ];
@@ -1446,6 +1542,45 @@ html.${ROOT_CLS} [class*="DivTabContainer"] {
     applySettings();
   }
 
+  /* ─ Fast-Forward Speed on Hold Space ─ */
+  let isSpaceDown = false;
+  let spaceHoldTimer = null;
+  let is2xActive = false;
+  let activeSpeedVideo = null;
+  let originalPlaybackRate = 1;
+
+  function start2xSpeed() {
+    if (!holdSpeedEnabled || is2xActive) return;
+    const vid = activeVideo();
+    if (!vid) return;
+    activeSpeedVideo = vid;
+    originalPlaybackRate = vid.playbackRate || 1;
+    vid.playbackRate = holdSpeedRate;
+    is2xActive = true;
+  }
+
+  function stop2xSpeed() {
+    if (spaceHoldTimer) {
+      clearTimeout(spaceHoldTimer);
+      spaceHoldTimer = null;
+    }
+    if (is2xActive) {
+      if (activeSpeedVideo) {
+        try {
+          activeSpeedVideo.playbackRate = originalPlaybackRate || 1.0;
+        } catch (e) { }
+      }
+      const curVid = activeVideo();
+      if (curVid && curVid !== activeSpeedVideo) {
+        try {
+          curVid.playbackRate = 1.0;
+        } catch (e) { }
+      }
+      is2xActive = false;
+      activeSpeedVideo = null;
+    }
+  }
+
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && menuSettings.classList.contains('tt-open')) {
       menuSettings.classList.remove('tt-open');
@@ -1474,6 +1609,29 @@ html.${ROOT_CLS} [class*="DivTabContainer"] {
       return;
     }
 
+    if (e.key === ' ' || e.key === 'Spacebar' || e.code === 'Space') {
+      if ((onMinimalistRoute() || activeVideo()) && (holdSpeedEnabled || settings.spacebarPause)) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.repeat) {
+          if (holdSpeedEnabled && !is2xActive) start2xSpeed();
+          return;
+        }
+        if (!isSpaceDown) {
+          isSpaceDown = true;
+          if (spaceHoldTimer) clearTimeout(spaceHoldTimer);
+          if (holdSpeedEnabled) {
+            spaceHoldTimer = setTimeout(() => {
+              if (isSpaceDown) {
+                start2xSpeed();
+              }
+            }, 200);
+          }
+        }
+        return;
+      }
+    }
+
     const k = (e.key || '').toLowerCase();
     if (e.key === 'Escape' && enabled && onMinimalistRoute()) {
       setEnabled(false);
@@ -1481,16 +1639,36 @@ html.${ROOT_CLS} [class*="DivTabContainer"] {
       setEnabled(!enabled);
     } else if (k === CONFIG.muteKey && enabled && onMinimalistRoute()) {
       toggleMute();
-    } else if (e.key === ' ' && onMinimalistRoute() && settings.spacebarPause) {
-      e.preventDefault();
-      e.stopPropagation();
-      const vid = activeVideo();
-      if (vid) {
-        if (vid.paused) vid.play();
-        else vid.pause();
+    }
+  }, true);
+
+  window.addEventListener('keyup', (e) => {
+    const t = e.target;
+    if (t && t.closest && t.closest('input, textarea, [contenteditable="true"]')) return;
+
+    if (e.key === ' ' || e.key === 'Spacebar' || e.code === 'Space') {
+      if (isSpaceDown) {
+        e.preventDefault();
+        e.stopPropagation();
+        const was2x = is2xActive;
+        isSpaceDown = false;
+        stop2xSpeed();
+
+        if (!was2x && settings.spacebarPause && (onMinimalistRoute() || activeVideo())) {
+          const vid = activeVideo();
+          if (vid) {
+            if (vid.paused) vid.play();
+            else vid.pause();
+          }
+        }
       }
     }
   }, true);
+
+  window.addEventListener('blur', () => {
+    isSpaceDown = false;
+    stop2xSpeed();
+  });
 
   let lastKey = null;
   window._ttVideoListUnhidden = false;
