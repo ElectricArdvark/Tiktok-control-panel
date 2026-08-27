@@ -4,6 +4,7 @@
 // @version      1.2
 // @description  Control panel for TikTok: customize element visibility (sidebar, action bar, captions, pills...), enable background playback, arrow seeking, spacebar to pause, minimalist mode...
 // @author       ElectricArdvark https://github.com/ElectricArdvark
+// @updateURL    https://raw.githubusercontent.com/ElectricArdvark/Tiktok-control-panel/main/userscript/tiktok-control-panel.user.js
 // @match        https://www.tiktok.com/*
 // @icon         https://www.tiktok.com/favicon.ico
 // @run-at       document-start
