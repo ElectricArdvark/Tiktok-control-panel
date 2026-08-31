@@ -2,7 +2,7 @@
 
 [![Made with AI](https://img.shields.io/badge/Made%20with-AI-lightgrey?style=for-the-badge)](https://github.com/mefengl/made-by-ai)
 
-A comprehensive control panel for TikTok on desktop: toggle minimalist cinema view, customize element visibility, enable background playback, configurable arrow seeking, spacebar pause, and custom player controls.
+A comprehensive control panel for TikTok on desktop: toggle minimalist cinema view, customize element visibility, enable background playback, configurable arrow seeking, spacebar pause/speed-up, and custom player controls.
 
 > [!NOTE]
 > Do to TikTok constant UI changes somethings may not work as intended.
@@ -22,7 +22,7 @@ A comprehensive control panel for TikTok on desktop: toggle minimalist cinema vi
 1. Install a userscript manager browser extension:
     - [Violentmonkey](https://violentmonkey.github.io/) (Recommended)
     - [Tampermonkey](https://www.tampermonkey.net/)
-2. Click **[this link](https://raw.githubusercontent.com/ElectricArdvark/Tiktok-control-panel/main/userscript/tiktok-control-panel.user.js)** — the extension will prompt you to install it. Enable auto-update (rerecommended).
+2. Click this link **[Github](https://raw.githubusercontent.com/ElectricArdvark/Tiktok-control-panel/main/userscript/tiktok-control-panel.user.js)** or **[Greasyfork](https://greasyfork.org/en/scripts/593768-tiktok-control-panel)** - the extension will prompt you to install it. Enable auto-update (recommended).
 4. To access the control panel, click the userscript manager icon → **Control Panel Settings**. Change settings as you see fit.
 5. Done.
 
@@ -44,7 +44,7 @@ A comprehensive control panel for TikTok on desktop: toggle minimalist cinema vi
 
 **or**
 
-1. [Download the latest extension zip](https://github.com/ElectricArdvark/Tiktok-control-panel/releases/latest/download/tiktok-control-panel-firefox.xpi).
+1. [Download the latest extension xpi](https://github.com/ElectricArdvark/Tiktok-control-panel/releases/latest/download/tiktok-control-panel-firefox.xpi).
 2. Navigate to the Extensions management page:
    - `about:addons`
 3. Click the **⚙** next to the search bar.
