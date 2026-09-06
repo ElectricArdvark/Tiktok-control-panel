@@ -529,10 +529,17 @@ html.${ROOT_CLS} [class*="DivTabContainer"] {
     return !isSearchRoute() && /^\/@[^/]+/.test(location.pathname) && !isOnVideoUrl();
   }
 
+  function isProfileVideoModal() {
+    if (!isOnVideoUrl()) return false;
+    return openedFromProfile || !!document.querySelector(
+      '[data-e2e="user-post-item"], [data-e2e="user-post-item-list"], [data-e2e="user-profile-header"], [data-e2e="browse-close"], [class*="DivShareLayoutMain"], [class*="ShareLayoutHeader"]'
+    );
+  }
+
   function onFeedRoute() {
     if (isSearchRoute()) return false;
     const p = location.pathname.replace(/\/+$/, '') || '/';
-    return CONFIG.routes.includes(p) || isOnVideoUrl();
+    return CONFIG.routes.includes(p);
   }
 
   function commentsOpen() {
@@ -548,7 +555,8 @@ html.${ROOT_CLS} [class*="DivTabContainer"] {
 
   function onMinimalistRoute() {
     if (isSearchRoute()) return false;
-    return onFeedRoute() || commentsOpen();
+    if (isProfileVideoModal()) return false;
+    return onFeedRoute() || isOnVideoUrl();
   }
 
   const SVG_CLOSE = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>';
@@ -847,8 +855,23 @@ html.${ROOT_CLS} [class*="DivTabContainer"] {
   }
 
   function setEnabled(v) {
+    const snapArt = activeArticle();
+    const snapY = window.scrollY;
+
+    function restoreScroll() {
+      if (snapArt && snapArt.isConnected) {
+        snapArt.scrollIntoView({ behavior: 'instant', block: 'center' });
+      } else {
+        window.scrollTo({ top: snapY, behavior: 'instant' });
+      }
+    }
+
     enabled = v;
     apply();
+    requestAnimationFrame(() => {
+      restoreScroll();
+      requestAnimationFrame(restoreScroll);
+    });
   }
 
   function apply() {
@@ -878,7 +901,6 @@ html.${ROOT_CLS} [class*="DivTabContainer"] {
     applySettings();
   }
 
-  /* ─ Fast-Forward Speed on Hold Space ─ */
   let isSpaceDown = false;
   let spaceHoldTimer = null;
   let is2xActive = false;
@@ -1003,6 +1025,7 @@ html.${ROOT_CLS} [class*="DivTabContainer"] {
   window._ttVideoListUnhidden = false;
   let lastVideoUrl = location.href;
   let navigatedByLink = false;
+  let openedFromProfile = isProfileRoute();
 
   document.addEventListener('click', (e) => {
     const link = e.target.closest('a');
@@ -1018,7 +1041,13 @@ html.${ROOT_CLS} [class*="DivTabContainer"] {
   }, true);
 
   setInterval(() => {
-    const key = location.pathname + location.search + '|' + enabled + '|' + commentsOpen() + '|' + extensionActive;
+    if (isProfileRoute()) {
+      openedFromProfile = true;
+    } else if (!isOnVideoUrl()) {
+      openedFromProfile = false;
+    }
+
+    const key = location.pathname + location.search + '|' + enabled + '|' + commentsOpen() + '|' + extensionActive + '|' + isProfileVideoModal();
     if (key !== lastKey) {
       lastKey = key;
       apply();
